@@ -42,12 +42,27 @@ function doCalculations(inputValues){
     return 0; // fallback just in case there are no values it will return 0 indicating nothing was multiplied 
 }
 
+function doCalculationsThreeNumbers(inputValues){
+
+    for (let i = 0; i < inputValues.length; i++){
+        for (let j = i+1; j < inputValues.length; j++){
+            for (let k = j+1; k < inputValues.length; k++){
+                if (inputValues[i] + inputValues[j] + inputValues[k] === 2020){
+                    return inputValues[i] * inputValues[j] * inputValues[k]; 
+                }
+            }
+        }
+    }
+
+    return 0; 
+}
+
 
 // will be the main entry point of the program (have to use it so there is no top level await in JS while also having a require statement)
 async function main(){
     let inputValues = await readInData("./day1_input.txt"); 
 
-    let product = doCalculations(inputValues); 
+    let product = doCalculationsThreeNumbers(inputValues); 
 
     console.log(product);
 }
