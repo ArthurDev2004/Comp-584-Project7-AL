@@ -30,7 +30,14 @@ async function determineValidPassport(filePath){
     let cidPresent = false;
     
     let passportDictionary = new Map(); 
-
+    let eyeColorSet = new Set(); // will be used to store the values that can be present and valid within the eye color field 
+    eyeColorSet.add("amb");
+    eyeColorSet.add("blu");   
+    eyeColorSet.add("brn");
+    eyeColorSet.add("gry");
+    eyeColorSet.add("grn");
+    eyeColorSet.add("hzl");
+    eyeColorSet.add("oth");
 
     // if line is just a newline character, then it is considered the end of the passport credentials 
     for await (line of (file.readLines())){
@@ -40,19 +47,82 @@ async function determineValidPassport(filePath){
 
             // check all credentials that were gathered before it and see which is present in the current passport 
             if (passportDictionary.has('byr') === true)
-                byrPresent = true;
+            {
+                let birthYear = +passportDictionary.get('byr'); 
+
+                // does the additional check required in part two 
+                if (birthYear >= 1920 && birthYear <= 2002)
+                    byrPresent = true;
+
+            }
             if (passportDictionary.has('iyr') === true)
-                iyrPresent = true;
+            {
+                let issueYear = +passportDictionary.get('iyr'); 
+
+                // does the additional check required in part two 
+                if (issueYear >= 2010 && issueYear <= 2020)
+                    iyrPresent = true;
+
+            }
             if (passportDictionary.has('eyr') === true)
-                eyrPresent = true;
-            if (passportDictionary.has('hgt') === true)
-                hgtPresent = true;
-            if (passportDictionary.has('hcl') === true)
-                hclPresent = true;             
-            if (passportDictionary.has('ecl') === true)
-                eclPresent = true;    
-            if (passportDictionary.has('pid') === true)
-                pidPresent = true;   
+            {
+                let expirationYear = +passportDictionary.get('eyr');  // converts the string which is the value to a number representation for the purposes of comparing
+
+                // does the additional check required in part two 
+                if (expirationYear >= 2020 && expirationYear <= 2030)
+                    eyrPresent = true;
+
+            }
+            if (passportDictionary.has('hgt') === true){
+
+                let height = passportDictionary.get("hgt");
+                let units = height.slice(-2); // will return the last two characters of the string, which if valid should be the units 
+                let heightNumber = +height.slice(0,-2); // will get the value of the height in number form
+
+                // will first determine the units, then check the numbers since they are different based on the units that are provided 
+                if (units === "cm"){
+                    
+                    if (heightNumber >= 150 && heightNumber <= 193)
+                        hgtPresent = true;
+
+                }
+                else if (units === "in"){
+
+                    if (heightNumber >= 59 && heightNumber <= 76)
+                        hgtPresent = true; 
+
+                }
+            }
+            if (passportDictionary.has('hcl') === true){
+
+                let hairColor = passportDictionary.get('hcl'); 
+
+                // check if first digit is a # 
+                if (hairColor[0] === '#'){
+
+                    let hairColorNumber = hairColor.slice(1); // will get everything but the first 
+
+                    if (hairColorNumber.length === 6)
+                        hclPresent = true; 
+
+                }
+
+            }         
+            if (passportDictionary.has('ecl') === true){
+
+                // if the color is present in the set, then it is valid 
+                if (eyeColorSet.has(passportDictionary.get('ecl')) === true)
+                    eclPresent = true;    
+            
+            }
+            if (passportDictionary.has('pid') === true){
+
+                let passportID = passportDictionary.get('pid');
+                
+                if (passportID.length === 9)
+                    pidPresent = true;
+
+            }   
             if (passportDictionary.has('cid') === true)
                 cidPresent = true;   
 
