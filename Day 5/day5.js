@@ -1,6 +1,4 @@
 const fs = require('node:fs/promises'); // will be used to read in the file line by line 
-const { getAssetAsBlob } = require('node:sea');
-
 // will be main entrypoint of the program 
 async function main(){
     let mySeatID = await calculateMySeatID("./day5_input.txt");
