@@ -1,11 +1,12 @@
 const fs = require('node:fs/promises'); // will be used to read in the file line by line 
-const { spec } = require('node:test/reporters');
+
 
 
 async function main(){
 
-    console.log(await determineLuggage("./day7_input.txt")); 
-
+    //console.log(await determineLuggage("./day7_input.txt")); 
+    console.log(await part2Calculation("./day7_input.txt")
+    ); 
 }
 
 async function determineLuggage(filePath){
@@ -101,6 +102,84 @@ async function determineLuggage(filePath){
     }
 
     return bagsContainingShinyGold; // will return the number of bags that could contain shiny gold 
+}
+
+
+async function part2Calculation(filePath){
+
+    // first need to read it in line by line and add to the Map/dictionary/hashmap to 
+    const file = await fs.open(filePath); 
+
+    let bagMap = new Map(); // will keep a key of the map, and a list of bags which are in it based on the input 
+
+    // set up the map, but this way have it setup so that it is in the order that the input file is 
+    for await (let line of file.readLines()){
+
+        let [containingBag, containedBags] = line.split(" contain "); // will split the line into two parts where one part has what is contained, and other what is doing the containing 
+
+        // get only the color from the containing bag 
+        containingBag = containingBag.replace("bags", ""); // gets rid of bags at the end of each color 
+        containingBag = containingBag.trim(); // gets rid of any white spaces 
+
+        // add that color as key to the map 
+        bagMap.set(containingBag, []); // will be an array of tuples
+
+        // add each of the colors of bags it can hold and the number of each it can hold 
+
+        let specificContents = containedBags.split(/[,.]/); // will split on commas and periods 
+        specificContents.pop();  // gets rid of the empty line 
+
+        // for each bag that is contained, seperate the color and the quantity 
+
+        for (let specificBag of specificContents){
+
+            let quantity = 0; 
+            let color; 
+
+            // trim the specificBag string to make sure there is no whitespace 
+            specificBag = specificBag.trim(); 
+
+            if (specificBag === "no other bags"){
+
+                continue; // will not add any entry to the value of the key, since it contains no bags 
+            }
+
+            // get the number which is the quanityt 
+            quantity = +specificBag.slice(0,1); // converts to a number 
+
+            color = specificBag.slice(1); // will get everything till the end 
+            color = color.replace("bags", ""); 
+            color = color.replace("bag", "");
+            color = color.trim(); 
+
+            bagMap.get(containingBag).push([quantity, color]); // should append the color and quantity tuple to the value which is an array for that specific key color 
+
+
+        }
+
+    }
+
+
+    // go through the map and do the calculations 
+    let totalBagsContainedInGold = countTotalBagsContained("shiny gold", bagMap); 
+
+
+    return totalBagsContainedInGold; 
+}
+
+// will be used to count total number of bags contained within the shiny gold bag 
+function countTotalBagsContained(bagColor, bagMap){
+
+    let total = 0; 
+
+    for (let [quantity, color] of bagMap.get(bagColor)){
+
+        total += quantity + (quantity * countTotalBagsContained(color, bagMap)); 
+
+    }
+
+
+    return total; 
 }
 
 main(); 
