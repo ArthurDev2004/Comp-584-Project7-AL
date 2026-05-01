@@ -1,3 +1,23 @@
+/*
+
+Day 7
+
+Node & MDN Documentation Citations
+
+Asynchronous File Opening For Handling Files Line by Line, fs.open(): https://nodejs.org/api/fs.html#fsopenpath-flags-mode-callback
+
+JS Map Object: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
+
+For Reading the File line by Line, fs.readLines(), async: https://nodejs.org/api/fs.html#filehandlereadlinesoptions
+
+String Handling and Conversion Methods on String Objects: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+
+Used require statement to include the file system module with the new async/await promises syntax: https://nodejs.org/api/fs.html#file-system
+
+*/
+
+
+
 const fs = require('node:fs/promises'); // will be used to read in the file line by line 
 
 
@@ -172,6 +192,7 @@ function countTotalBagsContained(bagColor, bagMap){
 
     let total = 0; 
 
+    // will go through each of the bags, and kind of go deep into the number of bags until it reaches a contains no other bags bag, that is when the recusion stops 
     for (let [quantity, color] of bagMap.get(bagColor)){
 
         total += quantity + (quantity * countTotalBagsContained(color, bagMap)); 

@@ -1,4 +1,22 @@
-// day 1 of Advent of Code 2020
+/*
+
+Day 1
+
+Node & MDN Documentation Citations
+
+Asynchronous File Opening For Handling Files Line by Line, fs.open(): https://nodejs.org/api/fs.html#fsopenpath-flags-mode-callback
+
+For Reading the File line by Line, fs.readLines(), async: https://nodejs.org/api/fs.html#filehandlereadlinesoptions
+
+String Handling and Conversion Methods on String Objects: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+
+Destructuring Outputs/Return Values Which Are arrays so can have easier access to the values: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring
+
+Unary Plus Operator used to convert string value from txt input to a number for calculations: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Unary_plus
+
+Used require statement to include the file system module with the new async/await promises syntax: https://nodejs.org/api/fs.html#file-system
+
+*/
 
 // should read in the data from the txt file from the advent of code website.
 

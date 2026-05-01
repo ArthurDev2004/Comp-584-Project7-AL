@@ -1,3 +1,24 @@
+/*
+
+Day 2
+
+Node & MDN Documentation Citations
+
+Asynchronous File Opening For Handling Files Line by Line, fs.open(): https://nodejs.org/api/fs.html#fsopenpath-flags-mode-callback
+
+For Reading the File line by Line, fs.readLines(), async: https://nodejs.org/api/fs.html#filehandlereadlinesoptions
+
+String Handling and Conversion Methods on String Objects: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+
+Destructuring Outputs/Return Values Which Are arrays so can have easier access to the values: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring
+
+Unary Plus Operator used to convert string value from txt input to a number for calculations: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Unary_plus
+
+Used require statement to include the file system module with the new async/await promises syntax: https://nodejs.org/api/fs.html#file-system
+
+*/
+
+
 const fs = require('node:fs/promises'); // will be used to read in the file line by line 
 
 // will be where the program is inputted the data, and the calculations are done in a line by line basis

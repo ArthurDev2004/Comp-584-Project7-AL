@@ -1,3 +1,28 @@
+/*
+
+Day 5
+
+Node & MDN Documentation Citations
+
+Asynchronous File Opening For Handling Files Line by Line, fs.open(): https://nodejs.org/api/fs.html#fsopenpath-flags-mode-callback
+
+Static from method in the Array class, to convert the set to an array: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from
+
+JS Set Object: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set
+
+For Reading the File line by Line, fs.readLines(), async: https://nodejs.org/api/fs.html#filehandlereadlinesoptions
+
+String Handling and Conversion Methods on String Objects: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+
+Destructuring Outputs/Return Values Which Are arrays so can have easier access to the values: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring
+
+Math namespace object used for the floor function to simulate integer division since JS treats all as "numbers" with decimals: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math
+
+
+Used require statement to include the file system module with the new async/await promises syntax: https://nodejs.org/api/fs.html#file-system
+*/
+
+
 const fs = require('node:fs/promises'); // will be used to read in the file line by line 
 // will be main entrypoint of the program 
 async function main(){
